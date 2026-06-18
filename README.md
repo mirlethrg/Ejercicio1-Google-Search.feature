@@ -1,3 +1,4 @@
+Este repo contiene los ejercicios de la prueba Automatizacion
 
 Ejercicio 1
 Este ejercicio deberá ser registrado en una feature en el repositorio de github
