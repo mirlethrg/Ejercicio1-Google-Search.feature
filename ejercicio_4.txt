@@ -1,4 +1,4 @@
-# language: es
+
 Requisito: Validación del endpoint de transacciones mediante JSON Request
 
   @regresion @positivo
