@@ -1,0 +1,44 @@
+# language: es
+Requisito: Validación del endpoint de transacciones mediante JSON Request
+
+  @regresion @positivo
+  Escenario: TC-01 Procesar transacción exitosa (Happy Path)
+    Dado que el servicio de transacciones está operativo
+    Cuando se envía una petición POST con un JSON válido que contiene montos positivos y fechas vigentes
+    Entonces la API debe responder con un código de estado 200 OK
+    Y el cuerpo de la respuesta debe incluir el ID de la transacción y estado "Aprobado"
+
+  @regresion @negativo
+  Escenario: TC-02 Rechazar transacción por tarjeta con fecha expirada
+    Dado que el servicio de transacciones está operativo
+    Cuando se envía una petición POST con el campo "expirationDate" en "2020-01-31"
+    Entonces la API debe responder con un código de estado 400 Bad Request
+    Y el mensaje de error debe indicar "La tarjeta se encuentra vencida"
+
+  @regresion @negativo
+  Escenario: TC-03 Rechazar transacción por monto inválido (Monto cero o negativo)
+    Dado que el servicio de transacciones está operativo
+    Cuando se envía una petición POST con el campo "amount" igual o menor a 0
+    Entonces la API debe responder con un código de estado 400 Bad Request
+    Y el mensaje de error debe indicar "El monto debe ser mayor a cero"
+
+  @regresion @negativo
+  Escenario: TC-04 Rechazar transacción por formato de DNI inválido
+    Dado que el servicio de transacciones está operativo
+    Cuando se envía una petición POST con el campo "dni" conteniendo caracteres alfanuméricos "ABC1234XX"
+    Entonces la API debe responder con un código de estado 400 Bad Request
+    Y el mensaje de error debe indicar "Formato de documento inválido"
+
+  @regresion @negativo
+  Escenario: TC-05 Rechazar transacción por ausencia de campos obligatorios
+    Dado que el servicio de transacciones está operativo
+    Cuando se envía una petición POST omitiendo el campo obligatorio "storeId"
+    Entonces la API debe responder con un código de estado 400 Bad Request
+    Y el mensaje de error debe especificar que el campo "storeId" es requerido
+
+  @regresion @negativo
+  Escenario: TC-06 Rechazar transacción por tipo de datos incorrecto
+    Dado que el servicio de transacciones está operativo
+    Cuando se envía una petición POST con un valor de tipo texto "Visa" en el campo numérico "cardType"
+    Entonces la API debe responder con un código de estado 422 Unprocessable Entity
+    Y el mensaje de error debe indicar un fallo en la estructura o casteo del JSON
