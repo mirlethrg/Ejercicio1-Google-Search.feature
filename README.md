@@ -24,5 +24,4 @@ Para ejecutar la prueba automatizada localmente, sigue estos pasos:
    
 Ejercicio 4
 
-crear 6 casos de prueba en lenguage gherkins 
-NOTA. Este Ejercicio es el mismo de la prueba manual, de igual forma se sube el archivo txt con los 6 casos
+crear 6 casos de prueba en lenguage gherkins en un archivo txt
